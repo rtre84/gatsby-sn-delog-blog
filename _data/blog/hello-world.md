@@ -14,11 +14,7 @@ found [here](https://github.com/ServingNiches/gatsby-servingniches).
 
 * ##### Issue 1: The forked repo, that this site used as a starting point, needed to be ported to Gatsby V2.
 
-  ```
-  **Fix:** Go through the really good official documentation on porting from Gatsby V1 to V2 [here](https://www.gatsbyjs.org/docs/migrating-from-v1-to-v2/). The Layout functionality had to be moved under the 
-  ```
-
-  components and are treated just as another component instead of a template that is applied to all pages. The layout functionality from Gatsby v1 can be recreated using the plugin "gatsby-plugin-layout".
+  **Fix:** Go through the really good official documentation on porting from Gatsby V1 to V2 [here](https://www.gatsbyjs.org/docs/migrating-from-v1-to-v2/). The Layout functionality had to be moved under the components and are treated just as another component instead of a template that is applied to all pages. The layout functionality from Gatsby v1 can be recreated using the plugin "gatsby-plugin-layout".
 
   ```javascript
   // File: gatsby-config.js   

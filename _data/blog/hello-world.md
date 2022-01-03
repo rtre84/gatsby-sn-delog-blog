@@ -20,7 +20,6 @@ found [here](https://github.com/ServingNiches/gatsby-servingniches).
 
   components and are treated just as another component instead of a template that is applied to all pages. The layout functionality from Gatsby v1 can be recreated using the plugin "gatsby-plugin-layout".
 
-  ````
   ```javascript
   // File: gatsby-config.js   
   {
@@ -30,7 +29,7 @@ found [here](https://github.com/ServingNiches/gatsby-servingniches).
      },
   },
   ```
-  ````
+
 * ##### Issue 2: Images in markdown not being rendered
 
     **Fix:** Images in the markdown (.md) files were not being rendered. The problem was twofold.  

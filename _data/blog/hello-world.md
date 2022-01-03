@@ -4,7 +4,7 @@ path: /2018-02-20___the_blog_is_live
 date: 2018-02-20T07:08:00.000Z
 title: The Blog Is Live!
 metaDescription: Life's too short for a subtitle.
-thumbnail: ''
+thumbnail: /assets/13020875105_33d0df0eaa_b.jpg
 ---
 Welcome to the Serving Niches Blog. After a few weeks of tinkering and working through bugs, this GatsbyJS powered blog is finally ready for 
 prime time. All code for this site is open source and can be 

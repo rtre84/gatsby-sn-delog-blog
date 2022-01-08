@@ -153,14 +153,14 @@ Should point to the hello.ts file you generated at the beginning.
 
 Click OK once you're done.
 
-![Setting Configuration Values](assets/RunDebugConfiguration.png)
+![Setting Configuration Values](//affectionate-colden-b72c61.netlify.app/assets/RunDebugConfiguration.png)
 
 ### The Test Run
 
 You're all set to do a test run. Set a breakpoint in parser.ts which should be at 
 ```TypeScript > src > compiler > parser.ts``` and hit the debugger button. The debugger window should open up and show you something similar
 to what's below. 
-![Debugger Window](./_FinalDebuggerWindow.png)
+![Debugger Window](//affectionate-colden-b72c61.netlify.app/assets/_FinalDebuggerWindow.png)
     
 ### Useful Links
 - [TypeScript Official Github Repo](https://github.com/Microsoft/TypeScript)

@@ -1,454 +1,173 @@
 ---
 template: BlogPost
-path: /remark-kitchen-sink
-date: 2020-02-21T12:12:25.364Z
-title: 'Hello World: The remark Kitchen Sink'
-thumbnail: ''
+path: /2020-08-23__debug_sam_lambda_locally
+date: 2020-08-23T11:12:00.000Z
+title: Debugging SAM Based TypeScript Lambdas
+thumbnail: /assets/25169160699_dae993e7a8_k.jpg
 ---
-# h1 Heading 8-)
+The world seems to be moving towards using TypeScript with NodeJS. TypeScript is a typed superset of Javascript. Another way of 
+looking at it, if you can pretend the ["Any"](https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md#3.1) type does not 
+exist, TypeScript almost feels like a strongly typed language.      
 
-## h2 Heading
+This blog post shows you how to go about setting up the debugger in WebStorm for server-side TypeScript projects. The instructions in 
+this post should work if you're looking to debug the TypeScript compiler itself or your node js project that uses TypeScript. Those 
+two are not exactly the same but for some reason I was tempted to spend time stepping through the TypeScript project to checkout 
+TypeScript internals. I'll have to do a future blog post detailing problem solving and debugging a standard TypeScript node js project. 
 
-### h3 Heading
+#### Fetch the TypeScript source here:  
+- [https://github.com/Microsoft/TypeScript](https://github.com/Microsoft/TypeScript)  
 
-#### h4 Heading
+#### In case you're looking to debug client side applications written using TypeScript:  
+- [https://www.jetbrains.com/help/idea/running-and-debugging-TypeScript.html](https://www.jetbrains.com/help/idea/running-and-debugging-TypeScript.html)
 
-##### h5 Heading
+#### Debugging TypeScript using Visual Studio Code:
+- [https://code.visualstudio.com/docs/TypeScript/TypeScript-debugging](https://code.visualstudio.com/docs/TypeScript/TypeScript-debugging)
 
-###### h6 Heading
+### General steps to set up debugging for server-side TypeScript Applications
+-- Add ``` "sourceMap":true ``` in the compilerOptions section of your tsconfig.json file.  
+-- The tsconfig.json file should mention an outfile or output folder. Assume its ```<base directory>/build``` if not specified. The output 
+directory is where the generated js files are located.  
+-- In the Run > Edit Configuration window, click the + sign and choose Node.Js option.  
+-- Add the output directory as working directory in the modal that pops up.  
+-- Add the generated index.js or main.js file in the output folder in the javascript file field.  
+-- If everything was done correctly, you should now be able to set breakpoints in your TypeScript code and hit them via 
+the debugger.   
 
-## Horizontal Rules
+## Getting breakpoints to work within TypeScript compiler source code 
 
-- - -
+### Optional: Setup HelloWorld Typescript project.
+ 
+If you already have typescript code you want to work with, there is no need to setup a hello world project. The typescript 
+compiler needs to be transpiling something to hit break points and do its thing.  
 
-- - -
+Create a folder and change into it. It does not matter what the folder is called so feel free ot change "examples" into whatever
+suits you best. 
 
-- - -
-
-## Typographic replacements
-
-Enable typographer option to see result.
-
-(c) (C) (r) (R) (tm) (TM) (p) (P) +-
-
-test.. test... test..... test?..... test!....
-
-!!!!!! ???? ,,  -- ---
-
-"Smartypants, double quotes" and 'single quotes'
-
-## Emphasis
-
-**This is bold text**
-
-**This is bold text**
-
-*This is italic text*
-
-*This is italic text*
-
-~~Strikethrough~~
-
-## Blockquotes
-
-> Blockquotes can also be nested...
->
-> > ...by using additional greater-than signs right next to each other...
-> >
-> > > ...or with spaces between arrows.
-
-## Lists
-
-Unordered
-
-* Create a list by starting a line with `+`, `-`, or `*`
-* Sub-lists are made by indenting 2 spaces:
-
-  * Marker character change forces new list start:
-
-    * Ac tristique libero volutpat at
-    * Facilisis in pretium nisl aliquet
-    * Nulla volutpat aliquam velit
-* Very easy!
-
-Ordered
-
-1. Lorem ipsum dolor sit amet
-2. Consectetur adipiscing elit
-3. Integer molestie lorem at massa
-4. You can use sequential numbers...
-5. ...or keep all the numbers as `1.`
-
-Start numbering with offset:
-
-57. foo
-58. bar
-
-## Code
-
-Inline `code`
-
-Indented code
-
-```
-// Some comments
-line 1 of code
-line 2 of code
-line 3 of code
+```bash
+mkdir examples && cd examples
 ```
 
-Block code "fences"
+Create a new file called "hello.ts" and paste in the below code.  
 
-```
-Sample text here...
-```
-
-Syntax highlighting
-
-```js
-var foo = function (bar) {
-  return bar++;
-};
-
-console.log(foo(5));
+```typescript
+interface Person {
+    firstName: string;
+    lastName: string;
+}
+function greeter(person: Person) {
+    return "Hello, " + person.firstName + " " + person.lastName;
+}
+let user = { firstName: "Jane", lastName: "User" };
+console.log(user)
 ```
 
-## Tables
+Create another file in the same folder called "tsconfig.json". Copy Paste the contents below into it.
 
-| Option | Description                                                               |
-| ------ | ------------------------------------------------------------------------- |
-| data   | path to data files to supply the data that will be passed into templates. |
-| engine | engine to be used for processing templates. Handlebars is the default.    |
-| ext    | extension to be used for dest files.                                      |
-
-Right aligned columns
-
-| Option | Description                                                               |
-| ------ | ------------------------------------------------------------------------- |
-| data   | path to data files to supply the data that will be passed into templates. |
-| engine | engine to be used for processing templates. Handlebars is the default.    |
-| ext    | extension to be used for dest files.                                      |
-
-## Links
-
-[link text](http://dev.nodeca.com)
-
-[link with title](http://nodeca.github.io/pica/demo/ "title text!")
-
-Autoconverted link https://github.com/nodeca/pica (enable linkify to see)
-
-## Images
-
-![Minion](https://octodex.github.com/images/minion.png) ![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
-
-Like links, Images also have a footnote style syntax
-
-![Alt text](https://octodex.github.com/images/dojocat.jpg "The Dojocat")
-
-With a reference later in the document defining the URL location:
-
-## Plugins
-
-The killer feature of `markdown-it` is very effective support of [syntax plugins](https://www.npmjs.org/browse/keyword/markdown-it-plugin).
-
-### [Emojies](https://github.com/markdown-it/markdown-it-emoji)
-
-> Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:
->
-> Shortcuts (emoticons): :-) :-( 8-) ;)
-
-see [how to change output](https://github.com/markdown-it/markdown-it-emoji#change-output) with twemoji.
-
-### [Subscript](https://github.com/markdown-it/markdown-it-sub) / [Superscript](https://github.com/markdown-it/markdown-it-sup)
-
-* 19^th^
-* H\~2\~O
-
-### [<ins>](https://github.com/markdown-it/markdown-it-ins)
-
-++Inserted text++
-
-### [<mark>](https://github.com/markdown-it/markdown-it-mark)
-
-\==Marked text==
-
-### [Footnotes](https://github.com/markdown-it/markdown-it-footnote)
-
-Footnote 1 link\[^first].
-
-Footnote 2 link\[^second].
-
-Inline footnote^\[Text of inline footnote] definition.
-
-Duplicated footnote reference\[^second].
-
-\[^first]: Footnote **can have markup**
-
-```
-and multiple paragraphs.
+```json
+{
+  "compilerOptions": {
+    "removeComments": false,
+    "target": "es6",
+    "module": "commonjs",
+    "declaration": false,
+    "sourceMap": true,
+    "lib": [
+      "es6",
+      "scripthost"
+    ],
+    "strictNullChecks": true,
+    "newLine": "lf",
+    "types": ["node"]
+  },
+  "files": [
+    "produceLKG.ts",
+    "buildProtocol.ts",
+    "processDiagnosticMessages.ts",
+    "generateLocalizedDiagnosticMessages.ts",
+    "configurePrerelease.ts",
+    "word2md.ts"
+  ]
+}
 ```
 
-\[^second]: Footnote text.
 
-### [Definition lists](https://github.com/markdown-it/markdown-it-deflist)
+### Clone and Setup the TypeScript repo
 
-Term 1
+Clone the TypeScript repo from [https://github.com/Microsoft/TypeScript](https://github.com/Microsoft/TypeScript) and follow instructions 
+to set it up. You preferably want this to be another directory and not in the same directory you created in the previous step.
 
-:   Definition 1 with lazy continuation.
-
-Term 2 with *inline markup*
-
-:   Definition 2
-
-```
-    { some code, part of Definition 2 }
-
-Third paragraph of definition 2.
+```bash
+git clone https://github.com/Microsoft/TypeScript && cd TypeScript
 ```
 
-*Compact style:*
+Instructions to build the TypeScript compiler are included in the README.md but here's what you mainly need to do. Once you've 
+changed into the TypeScript directory, install Gulp.js if you don't already have it.
 
-Term 1   ~ Definition 1
-
-Term 2   \~ Definition 2a
-  \~ Definition 2b
-
-### [Abbreviations](https://github.com/markdown-it/markdown-it-abbr)
-
-This is HTML abbreviation example.
-
-It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
-
-\*\[HTML]: Hyper Text Markup Language
-
-### [Custom containers](https://github.com/markdown-it/markdown-it-container)
-
-::: warning *here be dragons* :::---
-**Advertisement :)**
-
-* **[pica](https://nodeca.github.io/pica/demo/)** - high quality and fast image resize in browser.
-* **[babelfish](https://github.com/nodeca/babelfish/)** - developer friendly i18n with plurals support and easy syntax.
-
-You will like those projects!
-
-- - -
-
-# h1 Heading 8-)
-
-## h2 Heading
-
-### h3 Heading
-
-#### h4 Heading
-
-##### h5 Heading
-
-###### h6 Heading
-
-## Horizontal Rules
-
-- - -
-
-- - -
-
-- - -
-
-## Typographic replacements
-
-Enable typographer option to see result.
-
-(c) (C) (r) (R) (tm) (TM) (p) (P) +-
-
-test.. test... test..... test?..... test!....
-
-!!!!!! ???? ,,  -- ---
-
-"Smartypants, double quotes" and 'single quotes'
-
-## Emphasis
-
-**This is bold text**
-
-**This is bold text**
-
-*This is italic text*
-
-*This is italic text*
-
-~~Strikethrough~~
-
-## Blockquotes
-
-> Blockquotes can also be nested...
->
-> > ...by using additional greater-than signs right next to each other...
-> >
-> > > ...or with spaces between arrows.
-
-## Lists
-
-Unordered
-
-* Create a list by starting a line with `+`, `-`, or `*`
-* Sub-lists are made by indenting 2 spaces:
-
-  * Marker character change forces new list start:
-
-    * Ac tristique libero volutpat at
-    * Facilisis in pretium nisl aliquet
-    * Nulla volutpat aliquam velit
-* Very easy!
-
-Ordered
-
-1. Lorem ipsum dolor sit amet
-2. Consectetur adipiscing elit
-3. Integer molestie lorem at massa
-4. You can use sequential numbers...
-5. ...or keep all the numbers as `1.`
-
-Start numbering with offset:
-
-57. foo
-58. bar
-
-## Code
-
-Inline `code`
-
-Indented code
-
-```
-// Some comments
-line 1 of code
-line 2 of code
-line 3 of code
+```bash
+npm install -g gulp
+npm install
 ```
 
-Block code "fences"
+Finally to build the compiler - run
 
-```
-Sample text here...
-```
-
-Syntax highlighting
-
-```js
-var foo = function (bar) {
-  return bar++;
-};
-
-console.log(foo(5));
+```bash
+gulp local
 ```
 
-## Tables
+Once that step is done - we can test out the compiler by running what's below. I'm assuming your hello.ts file is in 
+the examples directory and just one level up. 
 
-| Option | Description                                                               |
-| ------ | ------------------------------------------------------------------------- |
-| data   | path to data files to supply the data that will be passed into templates. |
-| engine | engine to be used for processing templates. Handlebars is the default.    |
-| ext    | extension to be used for dest files.                                      |
-
-Right aligned columns
-
-| Option | Description                                                               |
-| ------ | ------------------------------------------------------------------------- |
-| data   | path to data files to supply the data that will be passed into templates. |
-| engine | engine to be used for processing templates. Handlebars is the default.    |
-| ext    | extension to be used for dest files.                                      |
-
-## Links
-
-[link text](http://dev.nodeca.com)
-
-[link with title](http://nodeca.github.io/pica/demo/ "title text!")
-
-Autoconverted link https://github.com/nodeca/pica (enable linkify to see)
-
-## Images
-
-![Minion](https://octodex.github.com/images/minion.png) ![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
-
-Like links, Images also have a footnote style syntax
-
-![Alt text](https://octodex.github.com/images/dojocat.jpg "The Dojocat")
-
-With a reference later in the document defining the URL location:
-
-## Plugins
-
-The killer feature of `markdown-it` is very effective support of [syntax plugins](https://www.npmjs.org/browse/keyword/markdown-it-plugin).
-
-### [Emojies](https://github.com/markdown-it/markdown-it-emoji)
-
-> Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:
->
-> Shortcuts (emoticons): :-) :-( 8-) ;)
-
-see [how to change output](https://github.com/markdown-it/markdown-it-emoji#change-output) with twemoji.
-
-### [Subscript](https://github.com/markdown-it/markdown-it-sub) / [Superscript](https://github.com/markdown-it/markdown-it-sup)
-
-* 19^th^
-* H\~2\~O
-
-### [<ins>](https://github.com/markdown-it/markdown-it-ins)
-
-++Inserted text++
-
-### [<mark>](https://github.com/markdown-it/markdown-it-mark)
-
-\==Marked text==
-
-### [Footnotes](https://github.com/markdown-it/markdown-it-footnote)
-
-Footnote 1 link\[^first].
-
-Footnote 2 link\[^second].
-
-Inline footnote^\[Text of inline footnote] definition.
-
-Duplicated footnote reference\[^second].
-
-\[^first]: Footnote **can have markup**
-
-```
-and multiple paragraphs.
+```bash
+node built/local/tsc.js ../examples/hello.ts
 ```
 
-\[^second]: Footnote text.
+The output of the above command should be a hello.js file. Don't expect to see the output of the code. Remember this is 
+the compiler, so if the hello.js file was generated successfully then all is well and everything is working as it should.
 
-### [Definition lists](https://github.com/markdown-it/markdown-it-deflist)
+### Open TypeScript source in WebStorm
 
-Term 1
+Open your local TypeScript repo in WebStorm. This should be fairly straightforward. Either use Open button on the Welcome Screen or choose Open 
+from the File menu.
 
-:   Definition 1 with lazy continuation.
+![Open TypeScript Project in WebStorm](./OpenTypeScriptProject.png)
 
-Term 2 with *inline markup*
+Refer to [this link](https://www.jetbrains.com/help/webstorm/opening-reopening-and-closing-projects.html) for 
+a more detailed walk-through of opening projects in WebStorm. 
 
-:   Definition 2
+### Setting up Run > Edit Configuration 
 
-```
-    { some code, part of Definition 2 }
+Time to set up the run/debug configuration.  
 
-Third paragraph of definition 2.
-```
+##### Node interpreter 
+Should point to your Node interpreter of choice. I used version ```10.15.0```. Anything 10 and above should work just fine.  
 
-*Compact style:*
+##### Working directory 
+Should point to your output folder. Unless you've changed something, this should be ```built/local```.  
 
-Term 1   ~ Definition 1
+##### Javascript file 
+Should point to the generated tsc.js file in the output directory. This file should have been generated when you ran 
+gulp local.  
 
-Term 2   \~ Definition 2a
-  \~ Definition 2b
+##### Application parameters 
+Should point to the hello.ts file you generated at the beginning.  
 
-### [Abbreviations](https://github.com/markdown-it/markdown-it-abbr)
+Click OK once you're done.
 
-This is HTML abbreviation example.
+![Setting Configuration Values](./RunDebugConfiguration.png)
 
-It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
+<br />
 
-\*\[HTML]: Hyper Text Markup Language
+### The Test Run
 
-### [Custom containers](https://github.com/markdown-it/markdown-it-container)
-
-::: warning *here be dragons* :::
+You're all set to do a test run. Set a breakpoint in parser.ts which should be at 
+```TypeScript > src > compiler > parser.ts``` and hit the debugger button. The debugger window should open up and show you something similar
+to what's below. 
+![Debugger Window](./_FinalDebuggerWindow.png)
+    
+### Useful Links
+- [TypeScript Official Github Repo](https://github.com/Microsoft/TypeScript)
+- [Jetbrains - creating custom projects in WebStorm](https://www.jetbrains.com/help/webstorm/creating-projects-in-product.html)
+- [Debugging a client-side TypeScript application](https://www.jetbrains.com/help/webstorm/running-and-debugging-typescript.html#ws_ts_run)
+- [Yeoman Generators for Typescript Applications](https://yeoman.io/learning/resources.html)
+### Cover Image Source
+Image Source: [Flickr](https://www.flickr.com/photos/146269332@N03/47106910624/in/photolist-2eLFemd-nY6vr9-MsyuhK-F2LmZN-WGWa1r-9fhnG9-GnT9Sj-q4v4k6-dpQPuy-TbxF2k-apL9WG-Nx5Xky-pM6nSe-2dbhxzr-c1GNPq-29wk6Vd-29iXfLq-MsNKVW-V5F1PA-KUGpmv-2dQfn2D-6snC1M-MsNKqh-jSeU32-mjhDwB-6td7T5-UXHBfJ-28veavC-ekV1wX-2agmFMS-UhqRDK-ekV1na-qwM8ii-28veaB9-edWUay-bCTfAn-buF9PV-ekV19D-ekUZVK-22BHK3U-QiKijz-QZxbZS-29iXfrN-7ioHwi-MtoYu4-2dZrD99-Sdz4Q3-JbLWRT-KUGqsD-jrETdg)

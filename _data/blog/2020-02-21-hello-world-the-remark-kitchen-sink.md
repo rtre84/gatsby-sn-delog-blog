@@ -129,7 +129,7 @@ the compiler, so if the hello.js file was generated successfully then all is wel
 Open your local TypeScript repo in WebStorm. This should be fairly straightforward. Either use Open button on the Welcome Screen or choose Open 
 from the File menu.
 
-![Open TypeScript Project in WebStorm](assets/OpenTypeScriptProject.png)
+![Open TypeScript Project in WebStorm](https://affectionate-colden-b72c61.netlify.app/assets/OpenTypeScriptProject.png)
 
 Refer to [this link](https://www.jetbrains.com/help/webstorm/opening-reopening-and-closing-projects.html) for 
 a more detailed walk-through of opening projects in WebStorm. 

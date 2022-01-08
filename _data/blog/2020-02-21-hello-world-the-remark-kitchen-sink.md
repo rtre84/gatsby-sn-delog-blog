@@ -129,7 +129,7 @@ the compiler, so if the hello.js file was generated successfully then all is wel
 Open your local TypeScript repo in WebStorm. This should be fairly straightforward. Either use Open button on the Welcome Screen or choose Open 
 from the File menu.
 
-![Open TypeScript Project in WebStorm](./OpenTypeScriptProject.png)
+![Open TypeScript Project in WebStorm](assets/OpenTypeScriptProject.png)
 
 Refer to [this link](https://www.jetbrains.com/help/webstorm/opening-reopening-and-closing-projects.html) for 
 a more detailed walk-through of opening projects in WebStorm. 
@@ -153,9 +153,7 @@ Should point to the hello.ts file you generated at the beginning.
 
 Click OK once you're done.
 
-![Setting Configuration Values](./RunDebugConfiguration.png)
-
-<br />
+![Setting Configuration Values](assets/RunDebugConfiguration.png)
 
 ### The Test Run
 

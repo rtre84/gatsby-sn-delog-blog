@@ -3,6 +3,7 @@ template: BlogPost
 path: /2021-08-14__the_greatest_package_manager
 date: 2021-08-14T05:14:00.000Z
 title: The Greatest Package Manager
+thumbnail: /assets/shelf-3195132_1280.jpeg
 ---
 ### Mirror mirror on the wall, who's the fairest package manager of them all?
 Let's face it … all the people reading this article do not agree on everything, and 
@@ -16,13 +17,13 @@ another 100 extensions I didn't know I was using, and so on and so forth.
 >**NOTE**: The new M1 chip won't run older packages or programming languages 
 out of the box. So if you are thinking of buying a Mac with an M1 chip, expect 
 to go through some suffering during setup.
-![Mac config used for this article](./macosM1Details_blurred.png)
+![Mac config used for this article](/assets/macosM1Details_blurred.png)
 
 ### Wouldn't life be easier if you had one package manager that could install it all?
 Enter [asdf](http://asdf-vm.com/). Mac and Linux variants are supported well. Sorry, Windows users 
 but no windows support at this time.
 
-![asdf homepage](./asdfHomepage.png)
+![asdf homepage](/assets/asdfHomepage.png)
 
 With asdf, you can do what they call a separate global and local setup for various languages and versions.
 
@@ -73,7 +74,7 @@ git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
 Installing asdf is the one place where it gets tricky. Make sure to look over the official 
 site for your specific setup. I will be going for Zsh and Git.
 
-![Zsh and git](./asdfZshGit.png)
+![Zsh and git](/assets/asdfZshGit.png)
 
 Find your specific set of circumstances on the official site for this step and 
 follow them. It's as simple as that.

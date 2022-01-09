@@ -228,4 +228,3 @@ Congratulations! You're now debugging Spark code on local like a Boss!
 ### Appendix
 
 [Flickr Image Source](https://www.flickr.com/photos/149533076@N07/50739230307/in/photolist-2kiDPrD-2kjiDg1-2kj35NF-2kkzSkm-2kfoAb8-2keWVoi-2kfBpka-2kdUGPw-2kdMmQn-2kdBd6B-2kjWXGY-2kd2mDm-2km8rS8-2kgjsDY-2kdEZYj-2kjRdNr-2keiUbJ-2kkjSDq-2kdZ4oU-2kiEtUV-2kfLeD7-2kjrExt-2kg33vD-2kf5Agk-2kfLhRE-2kfn8vR-2kfNpdJ-2kmLyTz-2kdivjq-2khDfSY-2kck1CK-2kg5vzQ-2kgyeCs-2kf2MCc-2kmCWDN-2kkkqzR-2kjnS99-2kj9ENo-2kmzaEC-2kiU8Fa-2kmcpkv-2kdoQy2-2khKRPu-2kcM8aW-2keAG3p-2kis6WC-2kjrrii-2khimw3-2ke2L7o-2keccEU)
-© 2022

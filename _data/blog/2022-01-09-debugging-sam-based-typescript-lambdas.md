@@ -144,7 +144,7 @@ In the input field, copy paste what's below to be your event template. This is o
 
 In the end you should have a toolbar at the top that looks something like this.
 
-![debug-toolbar-image](./debugger_toolbar.png)
+![debug-toolbar-image](/assets/debugger_toolbar.png)
 
 Congratulations! You should now have a working debug configuration. Set a breakpoint in a .ts file of choice  and debug away by clicking ![debug-button](https://affectionate-colden-b72c61.netlify.app/assets/debug-button.png) 
 

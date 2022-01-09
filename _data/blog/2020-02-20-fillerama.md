@@ -3,7 +3,7 @@ template: BlogPost
 path: /2020-12-30__debugging_spark_code_locally
 date: 2020-12-30T14:59:00.000Z
 title: Debugging Spark Code Locally Like A Boss
-thumbnail: ''
+thumbnail: /assets/50739230307_38fe76d5e9_k.jpg
 ---
 Stepping through Spark internals can be helpful. If anything, it helps make sense of what your code is doing 
 under the hood. In this post I'm going to explain how I setup my debugger to hit breakpoints within the Spark codebase to 

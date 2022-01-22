@@ -1,7 +1,7 @@
 {
-  "name": "gatsby-starter-delog",
-  "description": "A simplified blog for developers and designer. This starter built with Gatsby and Netlify CMS",
-  "author": "W3Layouts Team <info@w3layouts.com>",
+  "name": "gatsby-serving-niches-site",
+  "description": "A simplified blog for developers and designers. This site was built with Gatsby and Netlify CMS using the Gatsby Delog theme.",
+  "author": "Anup Vasudevan",
   "version": "1.6.0",
   "license": "MIT",
   "bugs": {
@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "gatsby": "^2.21.0",
+    "gatsby-link": "^2.0.10",
     "gatsby-plugin-dark-mode": "^1.1.1",
     "gatsby-plugin-google-analytics": "^2.1.36",
     "gatsby-plugin-manifest": "^2.4.1",
@@ -34,7 +35,9 @@
   "homepage": "https://github.com/rtre84/gatsby-sn-delog-blog#readme",
   "keywords": [
     "gatsby",
-    "netlify cms"
+    "netlify cms",
+    "serving niches org",
+    "serving niches"
   ],
   "repository": {
     "type": "git",

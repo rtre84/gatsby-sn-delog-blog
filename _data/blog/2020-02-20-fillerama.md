@@ -1,50 +1,230 @@
 ---
 template: BlogPost
-path: /fillerama
-date: 2020-02-20T14:59:36.571Z
-title: Dummy Content from Fillerama
-thumbnail: /assets/image-5.jpg
+path: /2020-12-30__debugging_spark_code_locally
+date: 2020-12-30T14:59:00.000Z
+title: Debugging Spark Code Locally Like A Boss
+thumbnail: /assets/50739230307_38fe76d5e9_k.jpg
 ---
-# No, I'll fix it. I'm good at fixing rot. Call me the Rotmeister. No, I'm the Doctor. Don't call me the Rotmeister.
+Stepping through Spark internals can be helpful. If anything, it helps make sense of what your code is doing 
+under the hood. In this post I'm going to explain how I setup my debugger to hit breakpoints within the Spark codebase to 
+be able to debug Spark Scala, Java and Python code.
 
-I am the Doctor, and you are the Daleks! You hit me with a cricket bat. You know when grown-ups tell you 'everything's going to be fine' and you think they're probably lying to make you feel better? You hit me with a cricket bat.
+### The Prep
 
-You've swallowed a planet! No… It's a thing; it's like a plan, but with more greatness. You hate me; you want to kill me! Well, go on! **Kill me!** *KILL ME!* Sorry, checking all the water in this area; there's an escaped fish.
+Setting up Spark locally involves downloading Hadoop binaries and Spark source code. I will be using IntelliJ for this tutorial 
+but in theory any IDE can let's you run and debug JVM based languages should do. This is being setup on a Macbook Pro but there's 
+no reason this wouldn't work on Windows. I don't have access to a PC so some exploration might be needed on your part for that.  
 
-## Did I mention we have comfy chairs?
+#### What you'll need
 
-No… It's a thing; it's like a plan, but with more greatness. Annihilate? No. No violence. I won't stand for it. Not now, not ever, do you understand me?! I'm the Doctor, the Oncoming Storm - and you basically meant beat them in a football match, didn't you?
+-You need Java 11 installed. Any LTS or version after 8 should do.  
+-Maven 3.6.3 or above installed.  
+-Scala 2.12.10 or above installed.  
+-Python 3 installed.  
+-Minimum 8 GB of RAM.  
+-Jetbrains IntelliJ IDE. I use the Ultimate version but this should work fine on the Community version.  
+-Coffee or drink of choice because you are going to need it.  
 
-1. \*Insistently\* Bow ties are cool! Come on Amy, I'm a normal bloke, tell me what normal blokes do!
-2. Sorry, checking all the water in this area; there's an escaped fish.
-3. Father Christmas. Santa Claus. Or as I've always known him: Jeff.
+### The Setup
 
-### I'm nobody's taxi service; I'm not gonna be there to catch you every time you feel like jumping out of a spaceship.
+We're going to download and setup Hadoop and Spark. Following that we'll configure IntelliJ. The most time consuming phase 
+will be the Spark compilation. Ironically the most frustrating phase could be the IntelliJ configuration.
 
-It's a fez. I wear a fez now. Fezes are cool. You know how I sometimes have really brilliant ideas? You know how I sometimes have really brilliant ideas? Sorry, checking all the water in this area; there's an escaped fish.
+#### Setup Hadoop
 
-* I am the last of my species, and I know how that weighs on the heart so don't lie to me!
-* You hit me with a cricket bat.
-* You know when grown-ups tell you 'everything's going to be fine' and you think they're probably lying to make you feel better?
+We'll need to install Hadoop binaries first. There's no reason you can't download the source and build it but that is unnecessary
+for what we're trying to achieve here. 
 
-I'm the Doctor. Well, they call me the Doctor. I don't know why. I call me the Doctor too. I still don't know why. I'm nobody's taxi service; I'm not gonna be there to catch you every time you feel like jumping out of a spaceship.
+Hadoop 3.2.1 is the version of binaries that will be used in this tutorial. As long as you're setting up a version of Hadoop 
+that is compatible with the version of Spark you're using, we should be fine. The process hasn't changed much with versions.  
 
-It's a fez. I wear a fez now. Fezes are cool. The way I see it, every life is a pile of good things and bad things.…hey.…the good things don't always soften the bad things; but vice-versa the bad things don't necessarily spoil the good things and make them unimportant.
+Fetch the Hadoop binaries from: https://hadoop.apache.org/releases.html
 
-You know how I sometimes have really brilliant ideas? Annihilate? No. No violence. I won't stand for it. Not now, not ever, do you understand me?! I'm the Doctor, the Oncoming Storm - and you basically meant beat them in a football match, didn't you?
+Setting up is as simple as unzip the compressed file and placing them in a more permanent location on your hard drive. If you 
+have a ```Downloads``` folder where all your downloads go, you might want to unzip the hadoop file somewhere else. 
 
-You've swallowed a planet! They're not aliens, they're Earth…liens! You know when grown-ups tell you 'everything's going to be fine' and you think they're probably lying to make you feel better?
+Once that is done, add an entry to your ```.bash_profile``` or similar so that ```HADOOP_HOME``` is declared on startup. 
 
-Father Christmas. Santa Claus. Or as I've always known him: Jeff. \*Insistently\* Bow ties are cool! Come on Amy, I'm a normal bloke, tell me what normal blokes do! No… It's a thing; it's like a plan, but with more greatness.
+```bash
+export HADOOP_HOME=/Users/<YOUR USERNAME>/<Location of hadoop binaries>/Hadoop/hadoop-3.2.1/bin
+```
 
-\*Insistently\* Bow ties are cool! Come on Amy, I'm a normal bloke, tell me what normal blokes do! You've swallowed a planet! I'm the Doctor. Well, they call me the Doctor. I don't know why. I call me the Doctor too. I still don't know why.
+To check the environment variable points to the right place, type what's below at the command line if on a Mac or Linux variant. 
 
-It's art! A statement on modern society, 'Oh Ain't Modern Society Awful?'! All I've got to do is pass as an ordinary human being. Simple. What could possibly go wrong? Saving the world with meals on wheels.
+```bash
+ env | grep HADOOP_HOME 
+```
 
-You've swallowed a planet! Heh-haa! Super squeaky bum time! All I've got to do is pass as an ordinary human being. Simple. What could possibly go wrong? You know when grown-ups tell you 'everything's going to be fine' and you think they're probably lying to make you feel better?
+#### Setup Spark
 
-No… It's a thing; it's like a plan, but with more greatness. It's a fez. I wear a fez now. Fezes are cool. You hate me; you want to kill me! Well, go on! Kill me! KILL ME! Saving the world with meals on wheels.
+We're going to git clone the Apache Spark repo and compile it locally.
 
-You know when grown-ups tell you 'everything's going to be fine' and you think they're probably lying to make you feel better? Sorry, checking all the water in this area; there's an escaped fish. You hit me with a cricket bat.
+Clone the Spark repo.   
+```bash
+git clone https://github.com/apache/spark
+```
 
-Did I mention we have comfy chairs? Stop talking, brain thinking. Hush. No, I'll fix it. I'm good at fixing rot. Call me the Rotmeister. No, I'm the Doctor. Don't call me the Rotmeister. You know how I sometimes have really brilliant ideas?
+Change into the directory and build Spark from source using the below commands. Run the maven build command without sudo 
+so that IntelliJ does not give you problems when trying to build or read the target folder. Hang in there, the compilation 
+might take a while depending on your specs.
+
+```bash
+cd spark
+mvn -DskipTests clean package
+```
+
+After the build finishes, you can test out that Spark has build correctly by running one of the binaries in the bin folder.
+```bash
+bin/spark-shell
+```
+
+You should see something similar to the screenshot below.
+![Spark Scala Shell](./spark-shell.png)
+
+If the Spark Scala shell opens up for you then you are done with this step.
+
+#### Setting up IntelliJ
+
+We're almost there. Fire up IntelliJ and open the recently compiled Spark directory in it. Indexing might take a while but 
+you don't wait for it to finish to continue on with the remaining steps.
+
+First we go to IntelliJ > Preferences > Build, Execution, Deployment > Compiler > Java Compiler Menu. You will need to 
+set it up similar to the screenshot below.
+
+The checkbox next to ```Use '--release' option for cross-compilation (Java 9 and later) ``` should be unchecked. 
+
+Add ```spark-assembly``` and ```spark-parent``` to the per-module bytecode version section.
+
+Add ```spark-examples``` under the override compiler parameters per-module section.
+
+![Javac checkbox](/assets/java_compiler_menu.png)
+
+The indexing should have finished by now. If it hasn't, we have no choice but to wait before proceeding. Take a break. You've
+earned it.
+
+Left click on the Spark (spark-parent) directory in the Project tab and click on "Open Module Settings". You'll need to 
+make sure all modules that are dependencies are detected correctly. If any of the examples have imports that can't be found, 
+this should sort that situation out. 
+
+![Project Module Settings](/assets/project_module_settings.png)
+
+Once there you should be looking at something similar to what's below. If no modules are shown, use the + button to add 
+them. 
+
+![Adding Spark Modules](/assets/adding_spark_modules.png)
+
+I'm going to list out the modules that need to be checked for particular spark modules. In the screenshot above you can see 
+that spark-avro is selected and in the view that follows, spark-catalyst and spark-core are checked. You are going to have 
+to do this for a bunch of modules. If a module isn't on the list, simply add it using the + button. 
+
+#### Modules and their dependencies
+
+```
+spark-avro                            depends on  spark-catalyst, spark-core, spark-sql and spark-tags  
+spark-catalyst                        depends on  spark-core, spark-sketch, spark-tags and spark-unsafe   	
+spark-core                            depends on  spark-kvstore, spark-launcher, spark-network-common, spark-network-shuffle, 
+                                                  spark-tags and spark-unsafe
+spark-examples                        depends on  spark-sql
+spark-graphx                          depends on  spark-core, spark-mllib-local and spark-tags
+spark-hive                            depends on  spark-catalyst, spark-core, spark-sql and spark-tags
+spark-kvstore                         depends on  spark-tags
+spark-launcher                        depends on  spark-tags
+spark-mllib                           depends on  spark-catalyst, spark-core, spark-graphx, spark-mllib-local, spark-sql, 
+                                                  spark-streaming, spark-tags
+spark-mllib-local                     depends on  spark-tags
+spark-network-common                  depends on  spark-tags
+spark-network-shuffle                 depends on  spark-tags, spark-network-common  
+spark-repl                            depends on  spark-tags, spark-core, spark-mllib and spark-sql
+spark-sketch                          depends on  spark-tags
+spark-sql                             depends on  spark-catalyst, spark-core, spark-sketch and spark-tags
+spark-sql-kafka-0-10                  depends on  spark-tags, spark-catalyst, spark-core, spark-sql, 
+                                                  spark-token-provider-kafka-0-10
+spark-streaming                       depends on  spark-core, spark-tags
+spark-streaming-kafka-0-10            depends on  spark-tags, spark-core, spark-streaming, spark-token-provider-kafka-0-10
+spark-streaming-kafka-0-10-assembly   depends on  spark-streaming, spark-streaming-kafka-0-10
+spark-token-provider-kafka-0-10       depends on  spark-tags, spark-core
+spark-unsafe                          depends on  spark-tags
+```
+
+Whew! That was a long list. Congratulations on making it this far. Next we're going to setup one example each for debugging. A Java example, a Scala example and a Python example. The spark-examples
+folder contains examples in all supported programming languages.
+
+#### The Java Example
+
+We're going to set up the JavaSparkPi example so that it's debuggable. You can follow this process for any of the java examples.
+
+Go to Run > Edit Configurations.
+
+On the screen that follows, click the + button and choose Application. Fill out the fields similar to the screenshot below.
+
+![Java Example Config](/assets/java_example_config.png)
+
+For Environment variables, copy paste what's below.
+```bash
+--class
+org.apache.spark.examples.JavaSparkPi
+--master
+local
+examples/target/original-spark-examples_2.12-3.0.0-SNAPSHOT.jar
+```
+
+#### The Scala Example
+
+For Scala we're going to use the SparkPi example. 
+
+Similar to above, go to Run > Edit Configurations.
+
+On the screen that follows, click the + button and choose Application. Fill out the fields similar to the screenshot below.
+
+![Scala Example Config](/assets/scala_example_config.png)
+
+For Environment variables, copy paste what's below.
+```bash
+--class
+org.apache.spark.examples.SparkPi
+--master
+local
+examples/target/original-spark-examples_2.12-3.0.0-SNAPSHOT.jar
+```
+
+#### The Python Example
+
+For Python we're going to be using the logistic_regression example.
+
+Once again, go to Run > Edit Configurations.
+
+On the screen that follows, click the + button and choose Application. Fill out the fields similar to the screenshot below.
+
+![Python3 Example Config](/assets/python_example_config.png)
+
+For the VM options field, use what's below. Substitute <Your host name> with your local machine name.
+```bash
+-agentlib:jdwp=transport=dt_socket,server=n,address=<Your host name>:8086,suspend=y,onthrow=org.apache.spark.SparkException,onuncaught=n
+```
+
+In the program arguments field, use what's below.
+```bash
+--master
+local
+examples/src/main/python/logistic_regression.py
+```
+
+You should be set. 
+
+### Steps to Debug
+
+Set a breakpoint in any example you have set up.
+
+You should a dropdown similar to what's below. Click on the bug icon to debug.
+
+![Debugger Button](/assets/debugger_button.png)
+
+You should now be greeted with this when your breakpoint is hit. 
+
+![Java Example Debugging](/assets/java_example_debugging.png) 
+
+Congratulations! You're now debugging Spark code on local like a Boss! 
+
+### Appendix
+
+[Flickr Image Source](https://www.flickr.com/photos/149533076@N07/50739230307/in/photolist-2kiDPrD-2kjiDg1-2kj35NF-2kkzSkm-2kfoAb8-2keWVoi-2kfBpka-2kdUGPw-2kdMmQn-2kdBd6B-2kjWXGY-2kd2mDm-2km8rS8-2kgjsDY-2kdEZYj-2kjRdNr-2keiUbJ-2kkjSDq-2kdZ4oU-2kiEtUV-2kfLeD7-2kjrExt-2kg33vD-2kf5Agk-2kfLhRE-2kfn8vR-2kfNpdJ-2kmLyTz-2kdivjq-2khDfSY-2kck1CK-2kg5vzQ-2kgyeCs-2kf2MCc-2kmCWDN-2kkkqzR-2kjnS99-2kj9ENo-2kmzaEC-2kiU8Fa-2kmcpkv-2kdoQy2-2khKRPu-2kcM8aW-2keAG3p-2kis6WC-2kjrrii-2khimw3-2ke2L7o-2keccEU)

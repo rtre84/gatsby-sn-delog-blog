@@ -3,7 +3,6 @@ import Helmet from "react-helmet"
 import {graphql} from 'gatsby'
 import Layout from "../components/layout"
 import {navigateTo} from "gatsby-link"
-import {siteMetadata} from "../../gatsby-config";
 
 const encode = (data) => {
     return Object.keys(data)
@@ -15,7 +14,6 @@ class ContactPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            site: siteMetadata
         };
     }
 
@@ -74,7 +72,7 @@ class ContactPage extends React.Component {
                             </div>
                             <div>
                                 <label htmlFor="w3lSender">Email</label>
-                                <input type="email" name="sender" id="w3lSender"/>
+                                <input type="email" name="email" id="w3lSender"/>
                             </div>
                             <div>
                                 <label htmlFor="w3lSubject">Subject</label>

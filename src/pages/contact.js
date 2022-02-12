@@ -20,6 +20,7 @@ class ContactPage extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
+        console.log(event.target.getAttribute('name'));
         fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},

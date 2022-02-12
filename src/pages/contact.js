@@ -20,12 +20,12 @@ class ContactPage extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
-        fetch('/form', {
+        fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body: encode({
                 'form-name': form.getAttribute('name'),
-                ...this.state,
+                // ...this.state,
             }),
         })
             .then(() => navigateTo(form.getAttribute('action')))

@@ -21,12 +21,13 @@ class ContactPage extends React.Component {
         event.preventDefault();
         const form = event.target;
         console.log(event.target.getAttribute('name'));
+
         fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body: encode({
                 'form-name': form.getAttribute('name'),
-                // ...this.state,
+                ...this.state,
             }),
         })
             .then(() => navigateTo(form.getAttribute('action')))
@@ -34,7 +35,9 @@ class ContactPage extends React.Component {
     };
 
     handleChange = (event) => {
-        this.setState({[event.target.name]: event.target.value});
+        console.log(event.target.name);
+        console.log(event.target.value);
+        this.setState({[event.target.getAttribute('name')]: event.target.getAttribute('value')});
     };
 
     render() {
@@ -84,7 +87,7 @@ class ContactPage extends React.Component {
                                 <textarea name="message" id="w3lMessage"></textarea>
                             </div>
                             <div style={{display: "flex", justifyContent: "flex-end"}}>
-                                <input type="submit" className="button -primary" style={{marginRight: 0}}/>
+                                <input type="submit" className="button" style={{marginRight: 0}}/>
                             </div>
                         </form>
                     </div>

@@ -24,7 +24,7 @@ class ContactPage extends React.Component {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body: encode({
-                'form-name': form.getAttribute('serving-niches-form'),
+                'form-name': form.getAttribute('name'),
                 ...this.state,
             }),
         })

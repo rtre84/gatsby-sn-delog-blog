@@ -58,7 +58,7 @@ class ContactPage extends React.Component {
                         <form
                             name="serving-niches-form"
                             method="POST"
-                            action="/thanks/"
+                            action="/thanks"
                             data-netlify="true"
                             netlify-honeypot="bot-field"
                             className="form-container"

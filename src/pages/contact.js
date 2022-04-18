@@ -57,12 +57,11 @@ class ContactPage extends React.Component {
                     <div>
                         <form
                             method="POST"
-                            // action="/thanks?no-cache=1"
+                            // target="/thanks?no-cache=1"
                             action="https://getform.io/f/e49ad0fd-7e8e-4ac3-95c0-eb1810cb13ce"
-                            data-netlify="true"
-                            netlify-honeypot="bot-field"
                             className="form-container"
-                            onSubmit={this.handleSubmit}
+                            // onSubmit={this.handleSubmit}
+                            target="_blank"
                         >
                             <input type="hidden" name="bot-field" />
                             <input type="hidden" name="serving-niches-form" value="contact" />

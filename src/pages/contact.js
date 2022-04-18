@@ -56,7 +56,6 @@ class ContactPage extends React.Component {
                     </div>
                     <div>
                         <form
-                            name="serving-niches-form"
                             method="POST"
                             action="/thanks?no-cache=1"
                             data-netlify="true"

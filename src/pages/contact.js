@@ -64,12 +64,14 @@ class ContactPage extends React.Component {
                             className="form-container"
                             onSubmit={this.handleSubmit}
                         >
-                            <div className="hidden" style={{display: 'none'}}>
-                                <label>
-                                    Don’t fill this out if you're human:
-                                    <input name="bot-field" onChange={this.handleChange}/>
-                                </label>
-                            </div>
+                            {/*<div className="hidden" style={{display: 'none'}}>*/}
+                            {/*    <label>*/}
+                            {/*        Don’t fill this out if you're human:*/}
+                            {/*        <input name="bot-field" onChange={this.handleChange}/>*/}
+                            {/*    </label>*/}
+                            {/*</div>*/}
+                            <input type="hidden" name="bot-field" />
+                            <input type="hidden" name="serving-niches-form" value="contact" />
                             <div>
                                 <label htmlFor="w3lName">Name</label>
                                 <input type="text" name="name" id="w3lName"/>

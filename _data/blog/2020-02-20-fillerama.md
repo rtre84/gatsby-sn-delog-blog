@@ -79,7 +79,7 @@ bin/spark-shell
 ```
 
 You should see something similar to the screenshot below.
-![Spark Scala Shell](./spark-shell.png)
+![Spark Scala Shell](/assets/spark-shell.png)
 
 If the Spark Scala shell opens up for you then you are done with this step.
 

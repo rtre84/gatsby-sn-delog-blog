@@ -1,2 +1,3 @@
 22
 legacy-peer-deps=true
+auto-install-peers=true

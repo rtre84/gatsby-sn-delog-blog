@@ -3,6 +3,7 @@ template: BlogPost
 path: /2020-12-30__debugging_spark_code_locally
 date: 2020-12-30T14:59:00.000Z
 title: Debugging Spark Code Locally Like A Boss
+description: Debugging Spark Code Locally Like A Boss
 thumbnail: /assets/50739230307_38fe76d5e9_k.jpg
 ---
 Stepping through Spark internals can be helpful. If anything, it helps make sense of what your code is doing 
@@ -79,6 +80,7 @@ bin/spark-shell
 ```
 
 You should see something similar to the screenshot below.
+
 ![Spark Scala Shell](/assets/spark-shell.png)
 
 If the Spark Scala shell opens up for you then you are done with this step.

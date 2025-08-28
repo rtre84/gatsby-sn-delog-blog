@@ -3,6 +3,7 @@ template: BlogPost
 path: /2020-12-29__migrating_wordpress_site_using_duplicator
 date: 2020-12-29T15:05:00.000Z
 title: Migrating WordPress Sites Using Duplicator
+description: Migrating WordPress Sites Using Duplicator
 thumbnail: /assets/20013034943_9d3d2605a8_k.jpg
 ---
 Migrating a WordPress site can be painful. WordPress workflows are not exactly the smoothest. In your cliche corporate
@@ -14,7 +15,7 @@ That's were Duplicator makes your life easier. This article details steps to mov
 to Production or another destination server. While marketed primarily for backups and migrations, I use duplicator to move 
 or re-create a WordPress in another location if the situation ever calls for it.
 
-###Pre-requisites
+### Pre-requisites
 **1.** Have credentials for the WordPress site you want to migrate. We're going to refer to this as the source site. Credentials
 here includes your WordPress database credentials and WordPress admin login credentials.  
 **2.** Have credentials for the new server you want to upload your WordPress site to. We're going to call this the destination 

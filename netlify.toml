@@ -1,11 +1,10 @@
 [build]
   publish = "public"
-  command = "rm -rf node_modules/.cache && npm run build"
+  command = "npm ci --force && npm run build"
 
 [build.environment]
-  NODE_VERSION = "22"
-  NPM_VERSION = "10"
-  NPM_FLAGS = "--legacy-peer-deps"
+  NODE_VERSION = "18"
+  NPM_VERSION = "9"
 
 [[plugins]]
   package = "netlify-plugin-gatsby-cache"

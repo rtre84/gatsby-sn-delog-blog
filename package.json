@@ -33,7 +33,10 @@
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "react-helmet": "^6.1.0",
-    "sass": "^1.77.0"
+    "sass": "^1.77.0",
+    "ajv": "8.11.2",
+    "ajv-keywords": "5.0.0",
+    "schema-utils": "4.0.0"
   },
   "devDependencies": {
     "prettier": "^3.3.0"
@@ -41,7 +44,10 @@
   "overrides": {
     "ajv": "8.11.2",
     "ajv-keywords": "5.0.0",
-    "webpack": "^5.90.0"
+    "schema-utils": "4.0.0",
+    "babel-loader": {
+      "schema-utils": "4.0.0"
+    }
   },
   "homepage": "https://github.com/rtre84/gatsby-sn-delog-blog#readme",
   "keywords": [
